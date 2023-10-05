@@ -1,4 +1,3 @@
-```markdown
 # NordVPN Random Country Connection Script
 
 This simple Bash script connects to NordVPN using a random country from a predefined list.
