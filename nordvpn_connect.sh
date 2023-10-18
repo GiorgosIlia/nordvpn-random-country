@@ -1,27 +1,41 @@
 #!/bin/bash
 
-# List of countries
-countries=("italy" "belgium" "netherlands" "germany")
+# Start the delay countdown in the background
+(sleep 120 && /home/user/Desktop/nordvpn_connect.sh) &
 
-# Check if NordVPN is already connected
-if nordvpn status | grep -q "Status: Connected"; then
-    selected_country=$(nordvpn status | awk -F 'Country: ' 'NF>1 {print $2}')
-    echo "NordVPN is already connected to $selected_country."
-    notify-send "NordVPN is already connected" "Connected to $selected_country"
-else
-    # Choose a random country from the list
-    selected_country=${countries[RANDOM % ${#countries[@]}]}
+# Display a message indicating the delay and the option to skip
+echo "Waiting for 2 minutes. Press Enter to skip or wait."
+echo "To skip, simply press Enter."
 
-    # Connect to the random country
-    nordvpn connect $selected_country
+# Wait for user input (press Enter to skip)
+read -t 120 -p "Press Enter to skip..." input
 
-    # Check if the connection was successful
+# If the user presses Enter, provide a message
+if [ -z "$input" ]; then
+    echo "Delay skipped."
+    # Continue with the NordVPN-related actions
+    # List of countries
+    countries=("United Kingdom" "Germany" "Netherlands" "France" "Sweden" "Switzerland" "Belgium" "Denmark" "Norway" "Poland" "Ireland" "Czech Republic" "Italy" "Spain" "Finland" "Serbia" "Austria" "Slovakia" "Slovenia" "Bulgaria" "Hungary" "Latvia" "Romania" "Portugal" "Luxembourg" "Ukraine" "Greece" "Estonia" "Iceland" "Albania" "Cyprus" "Croatia" "Moldova" "Bosnia and Herzegovina" "Georgia" "North Macedonia" "Lithuania")
+    # Check if NordVPN is already connected
     if nordvpn status | grep -q "Status: Connected"; then
-        echo "NordVPN is now connected to $selected_country."
-        # Display a pop-up notification
-        notify-send "NordVPN Connected" "Connected to $selected_country"
+        selected_country=$(nordvpn status | awk -F 'Country: ' 'NF>1 {print $2}')
+        echo "NordVPN is already connected to $selected_country."
+        notify-send "NordVPN is already connected" "Connected to $selected_country"
     else
-        echo "NordVPN connection failed."
-        notify-send "NordVPN wasn't able to connect to $selected_country"
+        # Choose a random country from the list
+        selected_country=${countries[RANDOM % ${#countries[@]}]}
+
+        # Connect to the random country
+        nordvpn connect $selected_country
+
+        # Check if the connection was successful
+        if nordvpn status | grep -q "Status: Connected"; then
+            echo "NordVPN is now connected to $selected_country."
+            # Display a pop-up notification
+            notify-send "NordVPN Connected" "Connected to $selected_country"
+        else
+            echo "NordVPN connection failed."
+            notify-send "NordVPN wasn't able to connect to $selected_country"
+        fi
     fi
 fi
