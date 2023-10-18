@@ -1,11 +1,13 @@
 #!/bin/bash
 
 # List of countries
-countries=("United Kingdom" "Germany" "Netherlands" "France" "Sweden" "Switzerland" "Belgium" "Denmark" "Norway" "Poland" "Ireland" "Czech Republic" "Italy" "Spain" "Finland" "Serbia" "Austria" "Slovakia" "Slovenia" "Bulgaria" "Hungary" "Latvia" "Romania" "Portugal" "Luxembourg" "Ukraine" "Greece" "Estonia" "Iceland" "Albania" "Cyprus" "Croatia" "Moldova" "Bosnia and Herzegovina" "Georgia" "North Macedonia" "Lithuania")
+countries=("italy" "belgium" "netherlands" "germany")
 
 # Check if NordVPN is already connected
 if nordvpn status | grep -q "Status: Connected"; then
-    echo "NordVPN is already connected."
+    selected_country=$(nordvpn status | awk -F 'Country: ' 'NF>1 {print $2}')
+    echo "NordVPN is already connected to $selected_country."
+    notify-send "NordVPN is already connected" "Connected to $selected_country"
 else
     # Choose a random country from the list
     selected_country=${countries[RANDOM % ${#countries[@]}]}
@@ -21,6 +23,5 @@ else
     else
         echo "NordVPN connection failed."
         notify-send "NordVPN wasn't able to connect to $selected_country"
-
     fi
 fi
