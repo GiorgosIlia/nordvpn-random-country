@@ -75,7 +75,26 @@ This simple Bash script connects to NordVPN using a random country from a predef
 
 Feel free to customize the list of countries or script behavior as needed.
 
+## Running the Script Periodically with Cron
+
+To run the script periodically, you can set up a cron job. For example, to run the script every 4 hours, follow these steps:
+
+1. Open your crontab configuration:
+
+   ```bash
+   crontab -e
+   ```
+
+2. Add a new cron job that specifies the frequency and the script to run. To run the script every 4 hours, you can use the following format:
+
+   ```bash
+   0 */4 * * * /path/to/nordvpn-random-country/nordvpn_connect.sh
+   ```
+
+   Replace `/path/to/nordvpn-random-country/` with the actual path to the script. Save and exit the crontab editor.
+
+The script will now execute automatically every 4 hours. You can customize the schedule by adjusting the cron expression to your desired frequency.
+
 ## License
 
 This script is open-source and available under the [MIT License](LICENSE).
-```

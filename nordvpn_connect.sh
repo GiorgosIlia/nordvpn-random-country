@@ -16,7 +16,11 @@ else
     # Check if the connection was successful
     if nordvpn status | grep -q "Status: Connected"; then
         echo "NordVPN is now connected to $selected_country."
+        # Display a pop-up notification
+        notify-send "NordVPN Connected" "Connected to $selected_country"
     else
         echo "NordVPN connection failed."
+        notify-send "NordVPN wasn't able to connect to $selected_country"
+
     fi
 fi
