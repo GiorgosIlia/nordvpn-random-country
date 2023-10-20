@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Start the delay countdown in the background
-(sleep 120 && /home/user/Desktop/nordvpn_connect.sh) &
-
 # Display a message indicating the delay and the option to skip
 echo "Waiting for 2 minutes. Press Enter to skip or wait."
 echo "To skip, simply press Enter."
@@ -15,7 +12,8 @@ if [ -z "$input" ]; then
     echo "Delay skipped."
     # Continue with the NordVPN-related actions
     # List of countries
-    countries=("United Kingdom" "Germany" "Netherlands" "France" "Sweden" "Switzerland" "Belgium" "Denmark" "Norway" "Poland" "Ireland" "Czech Republic" "Italy" "Spain" "Finland" "Serbia" "Austria" "Slovakia" "Slovenia" "Bulgaria" "Hungary" "Latvia" "Romania" "Portugal" "Luxembourg" "Ukraine" "Greece" "Estonia" "Iceland" "Albania" "Cyprus" "Croatia" "Moldova" "Bosnia and Herzegovina" "Georgia" "North Macedonia" "Lithuania")
+    countries=("italy" "belgium" "netherlands" "germany")
+
     # Check if NordVPN is already connected
     if nordvpn status | grep -q "Status: Connected"; then
         selected_country=$(nordvpn status | awk -F 'Country: ' 'NF>1 {print $2}')
