@@ -12,7 +12,7 @@ if [ -z "$input" ]; then
     echo "Delay skipped."
     # Continue with the NordVPN-related actions
     # List of countries
-    countries=("italy" "belgium" "netherlands" "germany")
+    countries=("italy" "belgium" "netherlands" "germany" "norway")
 
     # Check if NordVPN is already connected
     if nordvpn status | grep -q "Status: Connected"; then
